@@ -1,0 +1,89 @@
+{% extends "admin/base_site.html" %}
+{% load i18n static %}
+
+{% block extrastyle %}
+{{ block.super }}
+<link rel="stylesheet" href="{% static "admin/css/admin_login_form.css" %}">
+{{ form.media }}
+{% endblock %}
+
+{% block bodyclass %}{{ block.super }} login{% endblock %}
+
+{% block usertools %}
+{% endblock %}
+
+{% block nav-global %}
+
+{% endblock %}
+
+{% block nav-sidebar %}
+
+{% endblock %}
+
+{% block content_title %}
+
+{% endblock %}
+
+{% block nav-breadcrumbs %}{% endblock %}
+
+{% block content %}
+{% if form.errors and not form.non_field_errors %}
+<p class="errornote">
+    {% blocktranslate count counter=form.errors.items|length %}Please correct the error below.{% plural %}Please correct
+    the errors below.{% endblocktranslate %}
+</p>
+{% endif %}
+
+{% if form.non_field_errors %}
+{% for error in form.non_field_errors %}
+<p class="errornote">
+    {{ error }}
+</p>
+{% endfor %}
+{% endif %}
+
+<div id="content-main">
+    {% if user.is_authenticated %}
+    <p class="errornote">
+        {% blocktranslate trimmed %}
+        You are authenticated as {{ username }}, but are not authorized to
+        access this page. Would you like to login to a different account?
+        {% endblocktranslate %}
+    </p>
+    {% endif %}
+
+    <form action="{% url 'login' %}" method="post" id="login-form">
+        {% csrf_token %}
+        <div class="form-row username">
+            {{ form.username.errors }}
+            {{ form.username.label_tag }}
+            {{ form.username }}
+        </div>
+
+        <div class="form-row password">
+            {{ form.password.errors }}
+            {{ form.password.label_tag }}
+            {{ form.password }}
+            <input type="hidden" name="next" value="{{ next }}">
+        </div>
+
+        <div class="form-row recaptcha">
+            <script src="https://www.google.com/recaptcha/enterprise.js" async defer></script>
+            <div class="g-recaptcha" data-sitekey="{{ form.captcha }}" data-action="LOGIN"></div>
+            <label class="ltr recaptcha-description">This site is protected by reCAPTCHA and the Google Privacy Policy
+                and Terms of Service apply.</label>
+        </div>
+
+        <div class="submit-row">
+            <input type="submit" value="{% translate 'Log in' %}" name="login-button">
+        </div>
+
+        {% comment %} <div class="forgotten-password">
+            <a href="{% url 'forgotten-password' %}">Forgotten your password? Click here.</a>
+        </div> {% endcomment %}
+        <div class="back-to-home">
+            <a href="{% url 'home' %}">Back to Website</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

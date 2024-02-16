@@ -16,7 +16,16 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from App import views, forms
+
+admin.autodiscover()
+admin.site.login_form = forms.AuthAdminForm
+admin.site.login_template = 'admin_login_form.html'
 
 urlpatterns = [
+    path('', views.home, name="home"),
+    path('login/', views.login, name="login"),
     path('admin/', admin.site.urls),
+    path('home/', views.home, name="home"),
+    
 ]
