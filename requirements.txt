@@ -7,7 +7,7 @@ cffi==1.15.1
 colorama==0.4.6
 cryptocode==0.1
 distlib==0.3.6
-Django==3.2.24
+Django==4.1.6
 django-admin-list-filter-dropdown==1.0.3
 django-admin-ordering==0.17.0
 django-admin-searchable-dropdown==1.2
