@@ -9,5 +9,7 @@ This repository contains the code and instructions for implementing Google Recap
 
 . The login process begins when a user submits their credentials through a login form. The system then validates the reCAPTCHA, username and password entered by the user. If the credentials are correct, the user is redirected to the admin page. In case of invalid credentials, the system displays appropriate error messages to the user, such as "Invalid reCAPTCHA," "Please enter a correct Username and Password," or "An error occurred, please try again."
 
+#Python #Django #reCAPTCHA
+
 
 
